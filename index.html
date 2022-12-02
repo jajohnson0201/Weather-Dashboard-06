@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/assets/style.css"></link>
+    <link href="assets/style.css" rel="stylesheet">
+    </link>
     <title>Document</title>
 </head>
+
 <body>
-    
+    <h1>Weather Dashboard</h1>
+    <aside>
+        <h2>Search for a City</h2>
+        <textarea placeholder="City Input Here" id="city-name"></textarea>
+        <h2>Preset Cities</h2>
+        <section id="preset-buttons">
+        <button class="pre-button"></button>
+        <button class="pre-button"></button>
+        <button class="pre-button"></button>
+        <button class="pre-button"></button>
+        <button class="pre-button"></button>
+        </section>
+    </aside>
+    <aside>
+        <section id="chosen-city" class="hidden">
+            <h2 id="city-date"></h2>
+            <h3>Temp:<h3 id="temp-input"></h3>
+            </h3>
+            <h3>Wind:<h3 id="wind-input"></h3>
+            </h3>
+            <h3>Humidity:<h3 id="humidity-input"></h3>
+            </h3>
+        </section>
+        <section>
+
+        </section>
+    </aside>
 </body>
-<script 
+<script src="assets/script.js"></script>
+
 </html>
