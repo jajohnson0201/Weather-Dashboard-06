@@ -11,15 +11,16 @@
 </head>
 
 <body>
-    <h1>Weather Dashboard</h1>
-    <aside>
-        <section>
+    <h1 id="title">Weather Dashboard</h1>
+    <section id="content">
+    <aside id="search-section">
+        <section id="search-input">
             <h2>Search for a City</h2>
             <textarea placeholder="City Input Here" id="city-name"></textarea>
             <button id="search-button">Search</button>
-            <h2>Preset Cities</h2>
         </section>
         <section id="preset-buttons">
+            <h2>Preset Cities</h2>
             <button class="pre-button">New Orleans</button>
             <button class="pre-button">San Fransisco</button>
             <button class="pre-button">Boston</button>
@@ -27,18 +28,19 @@
             <button class="pre-button">Nashville</button>
         </section>
     </aside>
-    <aside>
+    <aside id="display-section">
         <section id="chosen-city" class="hidden">
+            <section id="current-city-date">
             <h2 id="city-date"></h2>
             <img id="current-icon"></img>
+            </section>
+            <section id="current-input">
             <h3 id="temp-input"></h3>
-            
-            <h3 id="wind-input">
-            </h3>
-            <h3 id="humidity-input">
-            </h3>
+            <h3 id="wind-input"></h3>
+            <h3 id="humidity-input"></h3>
+            </section>
         </section>
-        <section>
+        <section id="5day">
             <div id="day1">
 
             </div>
@@ -56,6 +58,7 @@
             </div>
         </section>
     </aside>
+    </section>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.6/dayjs.min.js"></script>
 <script src="assets/script.js"></script>

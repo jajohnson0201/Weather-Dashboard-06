@@ -1,3 +1,56 @@
 .hidden{
     visibility: hidden;
 }
+#title{
+    display:flex;
+    justify-content: space-around;
+}
+#content{
+    display: flex;
+}
+
+
+#search-section{
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 20%;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+#search-input{
+    
+    display:flex;
+    flex-direction: column;
+}
+.pre-button{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3%;
+    width:100%;
+    
+}
+#preset-buttons{
+    
+    text-align: center;
+}
+
+
+#display-section{
+    width: 50%;
+    display:flex;
+    flex-direction: column;
+}
+#chosen-city{
+    display:flex;
+    justify-content: space-around;
+}
+#current-city-date{
+    display: flex;
+    flex-direction: row;
+}
+#current-input{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}

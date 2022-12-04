@@ -97,6 +97,8 @@ function gotData() {
         dateTime.textContent=weather[i].dt_txt;
         icon.src= "http://openweathermap.org/img/wn/" +
             weather[i].weather[0].icon + ".png";
+            var date = dateTime.textContent.split(" ");
+            dateTime.textContent=date[0];
         temp.textContent=weather[i].main.temp + " °F";
         wind.textContent=weather[i].wind.speed + " MPH";
         humidity.textContent="Humidity: "+ weather[i].main.humidity + " %";
