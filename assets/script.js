@@ -17,8 +17,9 @@ var cityName = "";
 //     })
 //     .then(function (data) {
 //         console.log(data);
-//     });
+//     })
 
+var weather= [];
 
 function searchedCity(typed) {
     console.log(typed);
@@ -26,7 +27,7 @@ function searchedCity(typed) {
 
     chosenCitySection.classList.remove('hidden');
     var searchedCityUrl = "http://api.openweathermap.org/data/2.5/forecast?" +
-        "q=" + cityName + ",us&appid=b28f820e13155097eae3e6dfc028dc1c"
+        "q=" + cityName + ",us&units=imperial&appid=b28f820e13155097eae3e6dfc028dc1c"
     fetch(searchedCityUrl)
         .then(function (response) {
             // console.log(response)
@@ -42,20 +43,20 @@ function searchedCity(typed) {
 
 
             for (var i = 0; i < 4; i++) {
-
+                weather.push(data.list[(i*8)]);
                 console.log(data.list[(i * 8)]);
                 console.log(i);
             }
             var currentWeatherURL =
                 "https://api.openweathermap.org/data/2.5/weather?" +
-                "lat=" + lat + "&lon=" + lon + "&appid=b28f820e13155097eae3e6dfc028dc1c";
+                "lat=" + lat + "&lon=" + lon + "&units=imperial&appid=b28f820e13155097eae3e6dfc028dc1c";
             fetchCurrent(currentWeatherURL);
         });
 
 
 }
 
-var curren =
+//var curren =
 function fetchCurrent(current) {
 var curr=
     fetch(current)
@@ -65,17 +66,23 @@ var curr=
         }).then(function (dat) {
             console.log(dat)
             console.log(dat.main.temp);
+            weather.push(dat);
             var tempI = dat.main.temp;
             var windI = dat.wind.speed;
             var humidityI = dat.main.humidity;
+            gotData();
             return [tempI, windI, humidityI];
         })
-
         console.log(curr);
         return curr;
 }
-console.log(curren);
-
+//console.log(curren);
+function gotData(){
+    console.log(weather);
+    tempInput.textContent=weather[4].main.temp;
+    windInput.textContent=weather[4].wind.speed;
+    humidityInput.textContent=weather[4].main.humidity;
+}
 // fetchCurrent(currentWeatherURL);
 
 function presetCity(clicked) {
