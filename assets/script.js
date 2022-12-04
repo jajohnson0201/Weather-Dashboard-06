@@ -6,18 +6,11 @@ var chosenCitySection = document.querySelector("#chosen-city");
 var searchText = document.querySelector("#city-name");
 var searchButton = document.querySelector("#search-button")
 var presetButtons = document.querySelector("#preset-buttons")
+var currentIcon = document.querySelector("#current-icon");
+
 var cityName = "";
-
-// var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=10&lon=10&cnt=5&appid=b28f820e13155097eae3e6dfc028dc1c";
-// console.log(queryURL);
-
-// fetch(queryURL)
-//     .then(function (response) {
-//         return response.json();
-//     })
-//     .then(function (data) {
-//         console.log(data);
-//     })
+var today= dayjs().format('DD/MM/YYYY');
+console.log(today);
 
 var weather= [];
 
@@ -30,7 +23,6 @@ function searchedCity(typed) {
         "q=" + cityName + ",us&units=imperial&appid=b28f820e13155097eae3e6dfc028dc1c"
     fetch(searchedCityUrl)
         .then(function (response) {
-            // console.log(response)
             return response.json();
         })
         .then(function (data) {
@@ -39,27 +31,23 @@ function searchedCity(typed) {
             var lat = data.city.coord.lat;
             var lon = data.city.coord.lon;
 
-            cityDate.textContent = cityName;
-
-
-            for (var i = 0; i < 4; i++) {
+            
+            
+            for (var i = 0; i < 5; i++) {
                 weather.push(data.list[(i*8)]);
                 console.log(data.list[(i * 8)]);
                 console.log(i);
             }
             var currentWeatherURL =
-                "https://api.openweathermap.org/data/2.5/weather?" +
-                "lat=" + lat + "&lon=" + lon + "&units=imperial&appid=b28f820e13155097eae3e6dfc028dc1c";
+            "https://api.openweathermap.org/data/2.5/weather?" +
+            "lat=" + lat + "&lon=" + lon + "&units=imperial&appid=b28f820e13155097eae3e6dfc028dc1c";
             fetchCurrent(currentWeatherURL);
         });
-
-
-}
-
-//var curren =
-function fetchCurrent(current) {
-var curr=
-    fetch(current)
+    }
+    
+    //var curren =
+    function fetchCurrent(current) {
+        fetch(current)
         .then(function (resp) {
             //console.log(resp)
             return resp.json();
@@ -67,28 +55,26 @@ var curr=
             console.log(dat)
             console.log(dat.main.temp);
             weather.push(dat);
-            var tempI = dat.main.temp;
-            var windI = dat.wind.speed;
-            var humidityI = dat.main.humidity;
             gotData();
-            return [tempI, windI, humidityI];
         })
-        console.log(curr);
-        return curr;
-}
-//console.log(curren);
-function gotData(){
-    console.log(weather);
-    tempInput.textContent=weather[4].main.temp;
-    windInput.textContent=weather[4].wind.speed;
-    humidityInput.textContent=weather[4].main.humidity;
-}
-// fetchCurrent(currentWeatherURL);
+    }
+    
+    //console.log(curren);
+    function gotData(){
+        console.log(weather);
+        cityDate.textContent = cityName +" "+ today ;
+        currentIcon.src= "http://openweathermap.org/img/wn/"+ 
+            weather[5].weather[0].icon + ".png"
+        tempInput.textContent=weather[5].main.temp+ " °F";
+        windInput.textContent=weather[5].wind.speed+ " MPH";
+        humidityInput.textContent=weather[5].main.humidity+ " %";
+    }
 
+// fetchCurrent(currentWeatherURL);
 function presetCity(clicked) {
     console.log(clicked.textContent);
     cityName = clicked.textContent;
-
+    chosenCitySection.classList.remove('hidden');
     var cityUrl = "http://api.openweathermap.org/data/2.5/forecast?" +
         "q=" + cityName + "&limit=1&appid=b28f820e13155097eae3e6dfc028dc1c"
 
@@ -99,8 +85,22 @@ function presetCity(clicked) {
         })
         .then(function (data) {
             console.log(data);
+            cityDate.textContent = cityName +" "+ today;
+            var lat = data.city.coord.lat;
+            var lon = data.city.coord.lon;
+
+            for (var i = 0; i < 5; i++) {
+                weather.push(data.list[(i*8)]);
+                console.log(data.list[(i * 8)]);
+                console.log(i);
+            }
+            var currentWeatherURL =
+                "https://api.openweathermap.org/data/2.5/weather?" +
+                "lat=" + lat + "&lon=" + lon + "&units=imperial&appid=b28f820e13155097eae3e6dfc028dc1c";
+            fetchCurrent(currentWeatherURL);
         });
 }
+
 
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
