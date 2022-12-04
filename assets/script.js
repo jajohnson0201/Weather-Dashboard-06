@@ -34,7 +34,7 @@ var weather = [];
 function searchedCity(typed) {
     console.log(typed);
     cityName = typed;
-
+    weather = [];
     chosenCitySection.classList.remove('hidden');
     var searchedCityUrl = "http://api.openweathermap.org/data/2.5/forecast?" +
         "q=" + cityName + ",us&units=imperial&appid=b28f820e13155097eae3e6dfc028dc1c"
@@ -116,6 +116,7 @@ function gotData() {
 function presetCity(clicked) {
     console.log(clicked.textContent);
     cityName = clicked.textContent;
+    weather = [];
     chosenCitySection.classList.remove('hidden');
     var cityUrl = "http://api.openweathermap.org/data/2.5/forecast?" +
         "q=" + cityName + "&limit=1&appid=b28f820e13155097eae3e6dfc028dc1c"
