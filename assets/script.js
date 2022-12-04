@@ -9,11 +9,13 @@ var presetButtons = document.querySelector("#preset-buttons")
 var currentIcon = document.querySelector("#current-icon");
 
 var cityName = "";
-var today= dayjs().format('DD/MM/YYYY');
+var today = dayjs().format('DD/MM/YYYY');
 console.log(today);
 
-var weather= [];
+var weather = [];
 
+// function to get data from typed city for 5 day forcast,
+// and lat lon coordinates for current day function.
 function searchedCity(typed) {
     console.log(typed);
     cityName = typed;
@@ -31,23 +33,24 @@ function searchedCity(typed) {
             var lat = data.city.coord.lat;
             var lon = data.city.coord.lon;
 
-            
-            
+
+
             for (var i = 0; i < 5; i++) {
-                weather.push(data.list[(i*8)]);
+                weather.push(data.list[(i * 8)]);
                 console.log(data.list[(i * 8)]);
                 console.log(i);
             }
             var currentWeatherURL =
-            "https://api.openweathermap.org/data/2.5/weather?" +
-            "lat=" + lat + "&lon=" + lon + "&units=imperial&appid=b28f820e13155097eae3e6dfc028dc1c";
+                "https://api.openweathermap.org/data/2.5/weather?" +
+                "lat=" + lat + "&lon=" + lon + "&units=imperial&appid=b28f820e13155097eae3e6dfc028dc1c";
             fetchCurrent(currentWeatherURL);
         });
-    }
-    
-    //var curren =
-    function fetchCurrent(current) {
-        fetch(current)
+}
+
+// gets current weather data from lat and lon given with 5 day forecast.
+// adds current data to the weather obj
+function fetchCurrent(current) {
+    fetch(current)
         .then(function (resp) {
             //console.log(resp)
             return resp.json();
@@ -57,20 +60,22 @@ function searchedCity(typed) {
             weather.push(dat);
             gotData();
         })
-    }
-    
-    //console.log(curren);
-    function gotData(){
-        console.log(weather);
-        cityDate.textContent = cityName +" "+ today ;
-        currentIcon.src= "http://openweathermap.org/img/wn/"+ 
-            weather[5].weather[0].icon + ".png"
-        tempInput.textContent=weather[5].main.temp+ " °F";
-        windInput.textContent=weather[5].wind.speed+ " MPH";
-        humidityInput.textContent=weather[5].main.humidity+ " %";
-    }
+}
 
-// fetchCurrent(currentWeatherURL);
+// function to display data with object made from both 5 day forcast,
+// aslo displays current weather data
+function gotData() {
+    console.log(weather);
+    cityDate.textContent = cityName + " " + today;
+    currentIcon.src = "http://openweathermap.org/img/wn/" +
+        weather[5].weather[0].icon + ".png"
+    tempInput.textContent = weather[5].main.temp + " °F";
+    windInput.textContent = weather[5].wind.speed + " MPH";
+    humidityInput.textContent = weather[5].main.humidity + " %";
+}
+
+// function to get data from clicked option for 5 day forcast,
+// and lat lon coordinates for current day function.
 function presetCity(clicked) {
     console.log(clicked.textContent);
     cityName = clicked.textContent;
@@ -85,12 +90,11 @@ function presetCity(clicked) {
         })
         .then(function (data) {
             console.log(data);
-            cityDate.textContent = cityName +" "+ today;
             var lat = data.city.coord.lat;
             var lon = data.city.coord.lon;
 
             for (var i = 0; i < 5; i++) {
-                weather.push(data.list[(i*8)]);
+                weather.push(data.list[(i * 8)]);
                 console.log(data.list[(i * 8)]);
                 console.log(i);
             }
@@ -101,15 +105,31 @@ function presetCity(clicked) {
         });
 }
 
-
+// these 2 functions both store the last searched/clicked city in local storage
+function storeLastPresetResult(text) {
+    console.log(text.textContent);
+    localStorage.setItem("prevResults", JSON.stringify(text.textContent));
+}
+function storeLastSearchedResult(text) {
+    console.log(text);
+    localStorage.setItem("prevResults", JSON.stringify(text));
+}
+function setLastResult (){
+   var lastCity = JSON.parse(localStorage.getItem("prevResults"));
+   searchedCity(lastCity);
+}
+setLastResult();
+// event listener for the search results
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
     var typedCity = searchText.value;
-    //console.log(typedCity);
     searchedCity(typedCity);
+    storeLastSearchedResult(typedCity);
 });
 
+// event listener for the preset button options
 presetButtons.addEventListener("click", function (event) {
     var btnClicked = event.target;
     presetCity(btnClicked);
+    storeLastPresetResult(btnClicked);
 });
