@@ -159,7 +159,12 @@ function storeLastSearchedResult(text) {
 function setLastResult (){
    var lastCity = JSON.parse(localStorage.getItem("prevResults"));
    console.log(lastCity);
-   searchedCity(lastCity.slice(-1));
+   if (lastCity !== null){
+       searchedCity(lastCity.slice(-1));
+   }
+   else{
+    return;
+   }
 }
 setLastResult();
 
