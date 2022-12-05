@@ -7,6 +7,7 @@ var searchText = document.querySelector("#city-name");
 var searchButton = document.querySelector("#search-button")
 var presetButtons = document.querySelector("#preset-buttons")
 var currentIcon = document.querySelector("#current-icon");
+var preButtons = document.querySelector(".pre-button")
 
 var day1 = document.querySelector("#day1");
 var day2 = document.querySelector("#day2");
@@ -75,6 +76,15 @@ function fetchCurrent(current) {
             weather.push(dat);
             gotData();
         })
+}
+
+// clears the 5day forcast 
+function clearForecast() {
+    day1.innerHTML = ''
+    day2.innerHTML = ''
+    day3.innerHTML = ''
+    day4.innerHTML = ''
+    day5.innerHTML = ''
 }
 
 // function to display data with object made from both 5 day forcast,
@@ -172,6 +182,7 @@ setLastResult();
 searchButton.addEventListener("click", function (event) {
     event.preventDefault();
     var typedCity = searchText.value;
+    clearForecast();
     searchedCity(typedCity);
     storeLastSearchedResult(typedCity);
 });
@@ -179,6 +190,7 @@ searchButton.addEventListener("click", function (event) {
 // event listener for the preset button options
 presetButtons.addEventListener("click", function (event) {
     var btnClicked = event.target;
+    clearForecast();
     presetCity(btnClicked);
     storeLastPresetResult(btnClicked);
 });
