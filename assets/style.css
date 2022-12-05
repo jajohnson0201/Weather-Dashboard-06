@@ -4,6 +4,11 @@
 #title{
     display:flex;
     justify-content: space-around;
+    background-color: rgb(42, 42, 134);
+    color: white;
+    margin:0%;
+    padding-top: 2%;
+    padding-bottom: 2%;
 }
 #content{
     display: flex;
@@ -16,23 +21,32 @@
     width: 20%;
     display:flex;
     flex-direction: column;
-    justify-content: flex-start;
+    align-items: center;
+    margin-top: 2%;
 }
 #search-input{
     
     display:flex;
     flex-direction: column;
 }
+#search-button{
+    color: white;
+    background-color: rgb(89, 89, 196);
+    width: 100%;
+}
 .pre-button{
     display: flex;
     flex-direction: column;
     margin-top: 3%;
-    width:100%;
-    
+    width:50%;
+    background-color: rgb(148, 147, 147);
+    align-items: center;
 }
 #preset-buttons{
-    
-    text-align: center;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width:100%;
 }
 
 
@@ -43,14 +57,38 @@
 }
 #chosen-city{
     display:flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    margin-top: 2%;
+    flex-direction:column ;
+    margin-left: 1%;
+    padding-left: 3%;
+    outline-style: solid;
+    outline-color: black;
 }
 #current-city-date{
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 #current-input{
     display:flex;
     flex-direction: column;
-    align-items: center;
+    
+}
+
+#fiveday{
+    display:flex;
+    justify-content: space-evenly;
+    margin-top: 2%;
+}
+.card{
+    display:flex;
+    max-width: 20%;
+    flex-direction: column;
+    padding: 3%;
+    margin:1%;
+    outline-style: solid;
+    outline-color: black;
+    background-color: rgb(19, 19, 78);
+    color: white;
 }

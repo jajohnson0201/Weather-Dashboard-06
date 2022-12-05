@@ -81,13 +81,13 @@ function fetchCurrent(current) {
 // aslo displays current weather data
 function gotData() {
     console.log(weather);
-    cityDate.textContent = cityName + " " + today;
+    cityDate.textContent = weather[5].name + " " + today;
     currentIcon.src = "http://openweathermap.org/img/wn/" +
         weather[5].weather[0].icon + "@2x.png"
     tempInput.textContent = weather[5].main.temp + " °F";
     windInput.textContent = "Wind: "+ weather[5].wind.speed + " MPH";
     humidityInput.textContent = "Humidity: "+ weather[5].main.humidity + " %";
-
+    
     for(i=0;i<5;i++){
         var dateTime = document.createElement("h3");
         var icon = document.createElement("img");
@@ -119,7 +119,7 @@ function presetCity(clicked) {
     weather = [];
     chosenCitySection.classList.remove('hidden');
     var cityUrl = "http://api.openweathermap.org/data/2.5/forecast?" +
-        "q=" + cityName + "&limit=1&appid=b28f820e13155097eae3e6dfc028dc1c"
+        "q=" + cityName + "&units=imperial&limit=1&appid=b28f820e13155097eae3e6dfc028dc1c"
 
     fetch(cityUrl)
         .then(function (response) {
@@ -142,21 +142,24 @@ function presetCity(clicked) {
             fetchCurrent(currentWeatherURL);
         });
 }
-
+var localArray=[];
 // these 2 functions both store the last searched/clicked city in local storage
 function storeLastPresetResult(text) {
     console.log(text.textContent);
-    localStorage.setItem("prevResults", JSON.stringify(text.textContent));
+    localArray.push(text.textContent);
+    localStorage.setItem("prevResults", JSON.stringify(localArray));
 }
 function storeLastSearchedResult(text) {
     console.log(text);
-    localStorage.setItem("prevResults", JSON.stringify(text));
+    localArray.push(text);
+    localStorage.setItem("prevResults", JSON.stringify(localArray));
 } 
 
 // gets last city from local storage and sets its data on the page
 function setLastResult (){
    var lastCity = JSON.parse(localStorage.getItem("prevResults"));
-   searchedCity(lastCity);
+   console.log(lastCity);
+   searchedCity(lastCity.slice(-1));
 }
 setLastResult();
 
