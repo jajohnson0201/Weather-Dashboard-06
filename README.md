@@ -1,5 +1,6 @@
 # Weather-Dashboard-06
 
+![Screenshot 2022-12-05 175634](https://user-images.githubusercontent.com/115191212/205771506-a6e236fe-7514-44c4-93a1-3f899f9248fa.jpg)
 
 
 ## Link
