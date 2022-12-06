@@ -37,7 +37,7 @@ function searchedCity(typed) {
     cityName = typed;
     weather = [];
     chosenCitySection.classList.remove('hidden');
-    var searchedCityUrl = "http://api.openweathermap.org/data/2.5/forecast?" +
+    var searchedCityUrl = "https://api.openweathermap.org/data/2.5/forecast?" +
         "q=" + cityName + ",us&units=imperial&appid=b28f820e13155097eae3e6dfc028dc1c"
     fetch(searchedCityUrl)
         .then(function (response) {
@@ -92,7 +92,7 @@ function clearForecast() {
 function gotData() {
     console.log(weather);
     cityDate.textContent = weather[5].name + " " + today;
-    currentIcon.src = "http://openweathermap.org/img/wn/" +
+    currentIcon.src = "https://openweathermap.org/img/wn/" +
         weather[5].weather[0].icon + "@2x.png"
     tempInput.textContent = weather[5].main.temp + " °F";
     windInput.textContent = "Wind: "+ weather[5].wind.speed + " MPH";
@@ -105,7 +105,7 @@ function gotData() {
         var wind = document.createElement("h4");
         var humidity = document.createElement("h4");
         dateTime.textContent=weather[i].dt_txt;
-        icon.src= "http://openweathermap.org/img/wn/" +
+        icon.src= "https://openweathermap.org/img/wn/" +
             weather[i].weather[0].icon + ".png";
             var date = dateTime.textContent.split(" ");
             dateTime.textContent=date[0];
@@ -128,7 +128,7 @@ function presetCity(clicked) {
     cityName = clicked.textContent;
     weather = [];
     chosenCitySection.classList.remove('hidden');
-    var cityUrl = "http://api.openweathermap.org/data/2.5/forecast?" +
+    var cityUrl = "https://api.openweathermap.org/data/2.5/forecast?" +
         "q=" + cityName + "&units=imperial&limit=1&appid=b28f820e13155097eae3e6dfc028dc1c"
 
     fetch(cityUrl)
