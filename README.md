@@ -4,7 +4,7 @@
 
 
 ## Link
-website:  github: 
+website: https://jajohnson0201.github.io/Weather-Dashboard-06/  github: https://github.com/jajohnson0201/Weather-Dashboard-06
 
 ## Description
 The goal with this project was to start with no code and create a weather forcast website with html,css, and javascript. Including preset city options and a search area for a certain city.
