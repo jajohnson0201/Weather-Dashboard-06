@@ -164,7 +164,19 @@ function storeLastSearchedResult(text) {
     localArray.push(text);
     localStorage.setItem("prevResults", JSON.stringify(localArray));
 } 
-
+function renderSearchHistory(){
+    var lastCities = JSON.parse(localStorage.getItem("prevResults"));
+    if(lastCities !== null){
+        var prevCity = lastCities.slice(-1);
+        var prevButton = document.createElement("button");
+    prevButton.classList.add("pre-button");
+    prevButton.textContent=prevCity;
+    presetButtons.appendChild(prevButton);
+    } else {
+        return;
+    }
+}
+renderSearchHistory();
 // gets last city from local storage and sets its data on the page
 function setLastResult (){
    var lastCity = JSON.parse(localStorage.getItem("prevResults"));
