@@ -169,6 +169,7 @@ function renderSearchHistory(){
     if(lastCities !== null){
         var prevCity = lastCities.slice(-1);
         var prevButton = document.createElement("button");
+        prevButton.textContent= "";
     prevButton.classList.add("pre-button");
     prevButton.textContent=prevCity;
     presetButtons.appendChild(prevButton);
@@ -205,4 +206,5 @@ presetButtons.addEventListener("click", function (event) {
     clearForecast();
     presetCity(btnClicked);
     storeLastPresetResult(btnClicked);
+    renderSearchHistory();
 });
