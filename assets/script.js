@@ -15,7 +15,7 @@ var day3 = document.querySelector("#day3");
 var day4 = document.querySelector("#day4");
 var day5 = document.querySelector("#day5");
 
-var days= [
+var days = [
     day1,
     day2,
     day3,
@@ -95,23 +95,23 @@ function gotData() {
     currentIcon.src = "https://openweathermap.org/img/wn/" +
         weather[5].weather[0].icon + "@2x.png"
     tempInput.textContent = weather[5].main.temp + " °F";
-    windInput.textContent = "Wind: "+ weather[5].wind.speed + " MPH";
-    humidityInput.textContent = "Humidity: "+ weather[5].main.humidity + " %";
-    
-    for(i=0;i<5;i++){
+    windInput.textContent = "Wind: " + weather[5].wind.speed + " MPH";
+    humidityInput.textContent = "Humidity: " + weather[5].main.humidity + " %";
+
+    for (i = 0; i < 5; i++) {
         var dateTime = document.createElement("h3");
         var icon = document.createElement("img");
         var temp = document.createElement("h4");
         var wind = document.createElement("h4");
         var humidity = document.createElement("h4");
-        dateTime.textContent=weather[i].dt_txt;
-        icon.src= "https://openweathermap.org/img/wn/" +
+        dateTime.textContent = weather[i].dt_txt;
+        icon.src = "https://openweathermap.org/img/wn/" +
             weather[i].weather[0].icon + ".png";
-            var date = dateTime.textContent.split(" ");
-            dateTime.textContent=date[0];
-        temp.textContent=weather[i].main.temp + " °F";
-        wind.textContent=weather[i].wind.speed + " MPH";
-        humidity.textContent="Humidity: "+ weather[i].main.humidity + " %";
+        var date = dateTime.textContent.split(" ");
+        dateTime.textContent = date[0];
+        temp.textContent = weather[i].main.temp + " °F";
+        wind.textContent = weather[i].wind.speed + " MPH";
+        humidity.textContent = "Humidity: " + weather[i].main.humidity + " %";
         days[i].appendChild(dateTime);
         days[i].appendChild(icon);
         days[i].appendChild(temp);
@@ -152,7 +152,7 @@ function presetCity(clicked) {
             fetchCurrent(currentWeatherURL);
         });
 }
-var localArray=[];
+var localArray = [];
 // these 2 functions both store the last searched/clicked city in local storage
 function storeLastPresetResult(text) {
     console.log(text.textContent);
@@ -164,27 +164,29 @@ function storeLastSearchedResult(text) {
     console.log(text);
     console.log(lastCities);
     localArray.push(text);
-    if(lastCities !== null){
-    for(var i=0; i<lastCities.length; i++){
-    if (lastCities[i] === text){
-        localArray.pop();
-    }   }}
+    if (lastCities !== null) {
+        for (var i = 0; i < lastCities.length; i++) {
+            if (lastCities[i] === text) {
+                localArray.pop();
+            }
+        }
+    }
     console.log(localArray);
-            localStorage.setItem("prevResults", JSON.stringify(localArray));
-        
-} 
-function renderSearchHistory(text){
+    localStorage.setItem("prevResults", JSON.stringify(localArray));
+
+}
+function renderSearchHistory(text) {
     var lastCities = JSON.parse(localStorage.getItem("prevResults"));
-    if(lastCities !== null){
-        for(var i=0; i<lastCities.length; i++){
+    if (lastCities !== null) {
+        for (var i = 0; i < lastCities.length; i++) {
 
             var prevCity = lastCities[i];
             var prevButton = document.createElement("button");
-            prevButton.textContent= "";
-        prevButton.classList.add("pre-button");
-        prevButton.textContent=prevCity;
-        presetButtons.appendChild(prevButton); 
-    }
+            prevButton.textContent = "";
+            prevButton.classList.add("pre-button");
+            prevButton.textContent = prevCity;
+            presetButtons.appendChild(prevButton);
+        }
 
     } else {
         return;
@@ -192,15 +194,15 @@ function renderSearchHistory(text){
 }
 renderSearchHistory();
 // gets last city from local storage and sets its data on the page
-function setLastResult (){
-   var lastCity = JSON.parse(localStorage.getItem("prevResults"));
-   console.log(lastCity);
-   if (lastCity !== null){
-       searchedCity(lastCity.slice(-1));
-   }
-   else{
-    return;
-   }
+function setLastResult() {
+    var lastCity = JSON.parse(localStorage.getItem("prevResults"));
+    console.log(lastCity);
+    if (lastCity !== null) {
+        searchedCity(lastCity.slice(-1));
+    }
+    else {
+        return;
+    }
 }
 setLastResult();
 
