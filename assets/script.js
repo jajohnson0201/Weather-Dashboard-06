@@ -125,7 +125,7 @@ function gotData() {
 // and lat lon coordinates for current day function.
 function presetCity(clicked) {
     console.log(clicked.textContent);
-    cityName = clicked.textContent;
+    cityName = clicked;
     weather = [];
     chosenCitySection.classList.remove('hidden');
     var cityUrl = "https://api.openweathermap.org/data/2.5/forecast?" +
@@ -167,12 +167,15 @@ function storeLastSearchedResult(text) {
 function renderSearchHistory(){
     var lastCities = JSON.parse(localStorage.getItem("prevResults"));
     if(lastCities !== null){
-        var prevCity = lastCities.slice(-1);
-        var prevButton = document.createElement("button");
-        prevButton.textContent= "";
-    prevButton.classList.add("pre-button");
-    prevButton.textContent=prevCity;
-    presetButtons.appendChild(prevButton);
+        for(i=0; i<lastCities.length; i++){
+
+            var prevCity = lastCities[i];
+            var prevButton = document.createElement("button");
+            prevButton.textContent= "";
+        prevButton.classList.add("pre-button");
+        prevButton.textContent=prevCity;
+        presetButtons.appendChild(prevButton);
+        }
     } else {
         return;
     }
@@ -198,13 +201,17 @@ searchButton.addEventListener("click", function (event) {
     clearForecast();
     searchedCity(typedCity);
     storeLastSearchedResult(typedCity);
+    renderSearchHistory();
 });
 
 // event listener for the preset button options
 presetButtons.addEventListener("click", function (event) {
-    var btnClicked = event.target;
-    clearForecast();
-    presetCity(btnClicked);
-    storeLastPresetResult(btnClicked);
-    renderSearchHistory();
+    if (event.target.matches(".pre-button")) {
+        var btnClicked = event.target.textContent;
+        console.log(btnClicked);
+        clearForecast();
+        presetCity(btnClicked);
+        storeLastSearchedResult(btnClicked);
+        renderSearchHistory();
+    }
 });
