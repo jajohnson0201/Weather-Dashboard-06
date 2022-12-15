@@ -160,22 +160,32 @@ function storeLastPresetResult(text) {
     localStorage.setItem("prevResults", JSON.stringify(localArray));
 }
 function storeLastSearchedResult(text) {
+    var lastCities = JSON.parse(localStorage.getItem("prevResults"));
     console.log(text);
+    console.log(lastCities);
     localArray.push(text);
-    localStorage.setItem("prevResults", JSON.stringify(localArray));
+    if(lastCities !== null){
+    for(var i=0; i<lastCities.length; i++){
+    if (lastCities[i] === text){
+        localArray.pop();
+    }   }}
+    console.log(localArray);
+            localStorage.setItem("prevResults", JSON.stringify(localArray));
+        
 } 
-function renderSearchHistory(){
+function renderSearchHistory(text){
     var lastCities = JSON.parse(localStorage.getItem("prevResults"));
     if(lastCities !== null){
-        for(i=0; i<lastCities.length; i++){
+        for(var i=0; i<lastCities.length; i++){
 
             var prevCity = lastCities[i];
             var prevButton = document.createElement("button");
             prevButton.textContent= "";
         prevButton.classList.add("pre-button");
         prevButton.textContent=prevCity;
-        presetButtons.appendChild(prevButton);
-        }
+        presetButtons.appendChild(prevButton); 
+    }
+
     } else {
         return;
     }
@@ -201,7 +211,7 @@ searchButton.addEventListener("click", function (event) {
     clearForecast();
     searchedCity(typedCity);
     storeLastSearchedResult(typedCity);
-    renderSearchHistory();
+    renderSearchHistory(typedCity);
 });
 
 // event listener for the preset button options
@@ -212,6 +222,6 @@ presetButtons.addEventListener("click", function (event) {
         clearForecast();
         presetCity(btnClicked);
         storeLastSearchedResult(btnClicked);
-        renderSearchHistory();
+        renderSearchHistory(btnClicked);
     }
 });
